@@ -101,7 +101,7 @@ output/
   results_deep.csv        Deep scrape results (one row per file, JSON columns)
   results.json            Full JSON with all data
   downloads/
-    ABE J RIEDER/
+    {file_name_here}/
       PROBATE PETITION_01-17-2025.pdf
       WAIVER AND CONSENT_01-17-2025.pdf
       WAIVER AND CONSENT_01-17-2025_1.pdf    (duplicate name gets _1 suffix)
@@ -119,7 +119,7 @@ One row per search result. Columns:
 |---|---|---|
 | `file_num` | `2025-267` | Court file number |
 | `file_date` | `01/17/2025` | Filing date |
-| `file_name` | `ABE J RIEDER` | Decedent / party name |
+| `file_name` | `Name` | Decedent / party name |
 | `proceeding` | `PROBATE PETITION` | Proceeding type |
 | `dod` | `09/18/2024` | Date of death |
 | `court` | `Kings` | Court name |
@@ -336,7 +336,7 @@ This is more reliable than `querySelector` button matching because it works rega
 
 **File naming:**
 - PDFs saved to `output/downloads/{PERSON_NAME}/{DOC_NAME}_{DATE}.pdf`
-- Person name comes from the search results `file_name` field (e.g., `ABE J RIEDER`)
+- Person name comes from the search results `file_name` field (e.g., `file_name`)
 - Unsafe filename characters (`/`, `:`, `*`, etc.) replaced with underscores
 - Duplicate names on the same date get `_1`, `_2` suffixes (e.g., `WAIVER AND CONSENT_01-17-2025.pdf`, `WAIVER AND CONSENT_01-17-2025_1.pdf`)
 - Local file paths recorded in the `documents` JSON column as `local_path` for cross-referencing with the CSV
