@@ -7,7 +7,7 @@ Architecture:
   3. All form submissions happen through the real browser (no TLS fingerprint issues)
 
 Supports all 5 search types with deep scraping.
-Outputs: cases.csv, documents.csv, results.json
+Outputs: cases.csv, documents.csv, results.json  .
 """
 
 import asyncio
