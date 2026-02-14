@@ -453,17 +453,22 @@ JS_CLICK_BUTTON_BY_VALUE = """
 # ---------------------------------------------------------------------------
 # Scraper class — uses nodriver for all browser interactions
 # ---------------------------------------------------------------------------
+PROFILE_DIR = Path(__file__).parent / ".browser_profile"
+
+
 class WebSurrogateScraper:
     def __init__(
         self,
         request_delay: float = 1.0,
         headless: bool = False,
         download: bool = False,
+        profile_dir: str | Path | None = None,
     ):
         self.request_delay = request_delay
         self.headless = headless
         self.download = download
         self.limit = 0  # 0 = no limit
+        self.profile_dir = Path(profile_dir) if profile_dir else PROFILE_DIR
         self._browser = None
         self._page = None
         self.search_results: list[dict] = []  # shallow results
@@ -480,15 +485,34 @@ class WebSurrogateScraper:
             self._browser.stop()
 
     async def _init_browser(self):
-        log.info("Launching undetected Chrome…")
-        self._browser = await uc.start(headless=self.headless)
+        self.profile_dir.mkdir(parents=True, exist_ok=True)
+        log.info("Launching Chrome (profile: %s)…", self.profile_dir)
+        self._browser = await uc.start(
+            headless=self.headless,
+            user_data_dir=str(self.profile_dir),
+        )
         self._page = await self._browser.get(BASE)
 
-        # Phase 1: Wait for Cloudflare to clear
+        # Phase 1: Wait for Cloudflare to clear (may be instant with cached cookies)
         for attempt in range(30):
             await asyncio.sleep(2)
             try:
                 text = str(await self._page.evaluate("document.body.innerText"))
+                url = str(await self._page.evaluate("window.location.href"))
+
+                # Detect stale session error — clear cookies and reload
+                if "Request Could Not Be Processed" in text or "support ID" in text:
+                    log.warning("Stale session detected — clearing cookies and retrying…")
+                    await self._page.evaluate("document.cookie.split(';').forEach(c => document.cookie = c.trim().split('=')[0] + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;')")
+                    await self._page.send(uc.cdp.network.clear_browser_cookies())
+                    self._page = await self._browser.get(BASE)
+                    continue
+
+                # Already past all gates — on a search page
+                if "/File/" in url or "/Names/" in url or "/OldIndex/" in url:
+                    log.info("Session restored — already on search page (%ds)", (attempt + 1) * 2)
+                    return  # Skip welcome, captcha, search option
+
                 if any(k in text for k in ("Start Search", "Welcome to WebSurrogate",
                                             "I am human", "Search Options", "File Search")):
                     log.info("Cloudflare cleared after %ds", (attempt + 1) * 2)
@@ -499,6 +523,20 @@ class WebSurrogateScraper:
                 pass
         else:
             log.warning("Cloudflare may not have cleared after 60s")
+
+        # Check if we landed directly on Search Options (cookies valid, no captcha)
+        try:
+            text = str(await self._page.evaluate("document.body.innerText"))
+            url = str(await self._page.evaluate("window.location.href"))
+            if "Select one of the following search options" in text:
+                log.info("Session valid — skipping captcha, clicking search option")
+                await self._click_search_option("file")
+                return
+            if "/File/" in url or "/Names/" in url:
+                log.info("Session valid — already on search page")
+                return
+        except Exception:
+            pass
 
         # Phase 2: Click "Start Search" on Welcome page
         await self._handle_welcome_page()
@@ -700,6 +738,22 @@ class WebSurrogateScraper:
         self._page = await self._browser.get(url)
         await asyncio.sleep(self.request_delay)
         html = await self._get_html()
+
+        # Stale session — clear cookies and re-authenticate
+        if "Request Could Not Be Processed" in html or "support ID" in html:
+            log.warning("Stale session during navigation — clearing cookies…")
+            await self._page.send(uc.cdp.network.clear_browser_cookies())
+            self._page = await self._browser.get(BASE)
+            await asyncio.sleep(3)
+            await self._handle_welcome_page()
+            await self._solve_hcaptcha()
+            for key, u in URLS.items():
+                if u == url:
+                    await self._click_search_option(key)
+                    break
+            self._page = await self._browser.get(url)
+            await asyncio.sleep(self.request_delay)
+            html = await self._get_html()
 
         # If redirected to Welcome page
         if "Start Search" in html and "Welcome to WebSurrogate" in html:
@@ -1047,6 +1101,138 @@ class WebSurrogateScraper:
             name = name[:200]
         return name
 
+    # -- batch download: open all tabs, then fetch all PDFs ----------------
+    async def _batch_download(
+        self, queue: list[tuple[int, str, Path]],
+    ) -> list[tuple[int, bool, Path]]:
+        """Open all document viewer tabs at once, wait for Cloudflare,
+        then fetch all PDFs in parallel. Much faster than one-by-one.
+
+        queue: list of (doc_index, uuid, save_path)
+        returns: list of (doc_index, success, save_path)
+        """
+        if not queue:
+            return []
+
+        results: list[tuple[int, bool, Path]] = []
+        fh_tab_id = id(self._page)
+
+        # --- Phase 1: Open all viewer tabs ---
+        log.info("      Opening %d document tabs…", len(queue))
+        tab_map: list[tuple[int, str, Path, object | None]] = []  # (idx, uuid, path, tab)
+
+        for idx, uuid, save_path in queue:
+            tabs_before = set(id(t) for t in self._browser.tabs)
+            await self._page.evaluate(
+                f"""(function(){{
+                    var form = document.getElementById('FHForm');
+                    if (!form) return;
+                    var inp = document.createElement('input');
+                    inp.type = 'hidden'; inp.name = 'UUIDValue'; inp.value = '{uuid}';
+                    form.appendChild(inp);
+                    var origTarget = form.target;
+                    form.target = '_blank';
+                    form.submit();
+                    form.removeChild(inp);
+                    form.target = origTarget;
+                }})()"""
+            )
+            # Brief pause to let the tab spawn
+            await asyncio.sleep(0.3)
+
+            # Find the new tab
+            new_tab = None
+            for tab in self._browser.tabs:
+                if id(tab) not in tabs_before and id(tab) != fh_tab_id:
+                    new_tab = tab
+                    break
+            tab_map.append((idx, uuid, save_path, new_tab))
+
+        opened = sum(1 for _, _, _, t in tab_map if t is not None)
+        log.info("      Opened %d/%d tabs", opened, len(queue))
+
+        # --- Phase 2: Wait for Cloudflare on first tab ---
+        first_tab = next((t for _, _, _, t in tab_map if t is not None), None)
+        if first_tab and not self._viewer_cf_cleared:
+            log.info("      Waiting for Cloudflare on viewer domain…")
+            for i in range(60):
+                await asyncio.sleep(1)
+                try:
+                    ct = await first_tab.evaluate(
+                        "fetch(window.location.href)"
+                        ".then(r => r.headers.get('content-type'))"
+                        ".catch(() => 'error')",
+                        await_promise=True,
+                    )
+                    if "pdf" in str(ct).lower():
+                        log.info("      Viewer Cloudflare cleared after %ds", i + 1)
+                        self._viewer_cf_cleared = True
+                        break
+                except Exception:
+                    pass
+            else:
+                log.warning("      Viewer Cloudflare timeout")
+
+        # Give all tabs a moment to finish loading after CF clears
+        await asyncio.sleep(2)
+
+        # --- Phase 3: Fetch PDFs from all tabs ---
+        for idx, uuid, save_path, viewer_tab in tab_map:
+            if viewer_tab is None:
+                log.warning("      No tab for %s", uuid[:8])
+                results.append((idx, False, save_path))
+                continue
+
+            try:
+                raw = await viewer_tab.evaluate("""
+                    (async function() {
+                        try {
+                            var resp = await fetch(window.location.href);
+                            var ct = resp.headers.get('content-type') || '';
+                            if (!ct.includes('pdf')) return JSON.stringify({error: 'not pdf: ' + ct});
+                            var blob = await resp.blob();
+                            return new Promise(function(resolve) {
+                                var reader = new FileReader();
+                                reader.onload = function() {
+                                    resolve(JSON.stringify({ok:true, size:blob.size, data:reader.result}));
+                                };
+                                reader.readAsDataURL(blob);
+                            });
+                        } catch(e) { return JSON.stringify({error: e.toString()}); }
+                    })()
+                """, await_promise=True)
+
+                result = json.loads(str(raw))
+                if result.get("ok") and result.get("data"):
+                    b64_data = result["data"].split(",", 1)[1]
+                    pdf_bytes = base64.b64decode(b64_data)
+                    if len(pdf_bytes) > 100:
+                        save_path.parent.mkdir(parents=True, exist_ok=True)
+                        save_path.write_bytes(pdf_bytes)
+                        log.info("      Saved %s (%d bytes)", save_path.name, len(pdf_bytes))
+                        results.append((idx, True, save_path))
+                    else:
+                        log.warning("      Too small: %s (%d bytes)", uuid[:8], len(pdf_bytes))
+                        results.append((idx, False, save_path))
+                else:
+                    log.warning("      Fetch failed %s: %s", uuid[:8], result.get("error", ""))
+                    results.append((idx, False, save_path))
+            except Exception as e:
+                log.warning("      Error fetching %s: %s", uuid[:8], e)
+                results.append((idx, False, save_path))
+
+        # --- Phase 4: Close all viewer tabs ---
+        for _, _, _, viewer_tab in tab_map:
+            if viewer_tab is not None:
+                try:
+                    await viewer_tab.close()
+                except Exception:
+                    pass
+
+        downloaded = sum(1 for _, s, _ in results if s)
+        log.info("      Downloaded %d/%d PDFs", downloaded, len(queue))
+        return results
+
     # -- deep scrape -------------------------------------------------------
     async def _deep_scrape(self, rows: list[dict], court: str):
         """Click into each file -> extract File History -> collect all data."""
@@ -1078,25 +1264,22 @@ class WebSurrogateScraper:
             # Person folder name for downloads
             person_name = self._sanitize_filename(row.get("file_name", file_num))
 
-            # Process documents: get viewer URLs and optionally download PDFs
+            # Process documents: build entries and collect downloadable docs
             docs_with_urls = []
-            name_counter: dict[str, int] = {}  # track duplicates for naming
+            download_queue = []  # (index, uuid, save_path) for batch download
+            name_counter: dict[str, int] = {}
             for doc in docs:
                 doc_entry = {**doc, "viewer_url": "", "downloaded": False}
 
                 if doc.get("has_link") and doc.get("uuid"):
                     uuid_val = doc["uuid"]
-
-                    # Build a deterministic viewer URL from the form action + UUID
                     doc_entry["viewer_url"] = f"{BASE}/File/FileHistory?UUIDValue={uuid_val}"
 
-                    # Download if requested
                     if self.download:
                         doc_name = self._sanitize_filename(doc.get("doc_name", "document"))
                         doc_date = doc.get("doc_filed", "").replace("/", "-")
                         base_name = f"{doc_name}_{doc_date}" if doc_date else doc_name
 
-                        # Handle duplicates: append _1, _2, etc.
                         if base_name in name_counter:
                             name_counter[base_name] += 1
                             file_name = f"{base_name}_{name_counter[base_name]}.pdf"
@@ -1105,13 +1288,17 @@ class WebSurrogateScraper:
                             file_name = f"{base_name}.pdf"
 
                         save_path = self.download_dir / person_name / file_name
-                        success = await self._download_document(uuid_val, save_path)
-                        doc_entry["downloaded"] = success
-                        if success:
-                            doc_entry["local_path"] = str(save_path)
-                        await asyncio.sleep(0.5)  # brief pause between downloads
+                        download_queue.append((len(docs_with_urls), uuid_val, save_path))
 
                 docs_with_urls.append(doc_entry)
+
+            # Batch download: open all viewer tabs at once, then fetch all PDFs
+            if download_queue:
+                results = await self._batch_download(download_queue)
+                for idx, success, save_path in results:
+                    docs_with_urls[idx]["downloaded"] = success
+                    if success:
+                        docs_with_urls[idx]["local_path"] = str(save_path)
 
             # Build single flat row with all data
             self.cases.append({
@@ -1256,6 +1443,8 @@ Examples:
                         help="Download document PDFs (requires --deep)")
     parser.add_argument("--limit", type=int, default=0,
                         help="Limit to N files for deep scrape (0=all)")
+    parser.add_argument("--profile", type=str, default=None,
+                        help="Browser profile directory (default: .browser_profile/)")
     parser.add_argument("--delay", type=float, default=1.0)
     parser.add_argument("--output", type=str, default="results")
 
@@ -1268,6 +1457,7 @@ Examples:
         headless=args.headless,
         request_delay=args.delay,
         download=args.download,
+        profile_dir=args.profile,
     ) as s:
         s.limit = args.limit
 
