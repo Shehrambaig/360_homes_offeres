@@ -1,4 +1,206 @@
 {
-  "search_results": [],
-  "cases": []
+  "search_results": [
+    {
+      "btn_value": "2025-267",
+      "file_num": "2025-267",
+      "file_date": "01/17/2025",
+      "file_name": "ABE J RIEDER",
+      "proceeding": "PROBATE PETITION",
+      "dod": "09/18/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-49",
+      "file_num": "2025-49",
+      "file_date": "01/02/2025",
+      "file_name": "AMY L. MONROE",
+      "proceeding": "PROBATE PETITION",
+      "dod": "04/29/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-403",
+      "file_num": "2025-403",
+      "file_date": "01/30/2025",
+      "file_name": "ANTHONY  CACICIO",
+      "proceeding": "PROBATE PETITION",
+      "dod": "12/15/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-85",
+      "file_num": "2025-85",
+      "file_date": "01/06/2025",
+      "file_name": "ARON  AKSANOV",
+      "proceeding": "PROBATE PETITION",
+      "dod": "11/28/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-113",
+      "file_num": "2025-113",
+      "file_date": "01/09/2025",
+      "file_name": "ARTHUR  COHEN",
+      "proceeding": "PROBATE PETITION",
+      "dod": "08/11/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-77",
+      "file_num": "2025-77",
+      "file_date": "01/06/2025",
+      "file_name": "AUDREY  PENZA000000HUBER",
+      "proceeding": "PROBATE PETITION",
+      "dod": "11/28/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-271",
+      "file_num": "2025-271",
+      "file_date": "01/22/2025",
+      "file_name": "BASIL  CAPETANAKIS",
+      "proceeding": "PROBATE PETITION",
+      "dod": "12/22/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-226",
+      "file_num": "2025-226",
+      "file_date": "01/17/2025",
+      "file_name": "BETTY J PERRY",
+      "proceeding": "PROBATE PETITION",
+      "dod": "10/07/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-423",
+      "file_num": "2025-423",
+      "file_date": "01/15/2025",
+      "file_name": "BORIS  BELINSKIY",
+      "proceeding": "PROBATE PETITION",
+      "dod": "12/03/2023",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-224",
+      "file_num": "2025-224",
+      "file_date": "01/10/2025",
+      "file_name": "CHARLOTTE G DAVIS",
+      "proceeding": "PROBATE PETITION",
+      "dod": "04/06/2020",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-313",
+      "file_num": "2025-313",
+      "file_date": "01/22/2025",
+      "file_name": "CLAIRE ANN MCDONAGH",
+      "proceeding": "PROBATE PETITION",
+      "dod": "11/08/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-266",
+      "file_num": "2025-266",
+      "file_date": "01/21/2025",
+      "file_name": "CONSTANCE M. LEIST",
+      "proceeding": "PROBATE PETITION",
+      "dod": "11/01/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-305",
+      "file_num": "2025-305",
+      "file_date": "01/15/2025",
+      "file_name": "CYNTHIA  ISAACS",
+      "proceeding": "PROBATE PETITION",
+      "dod": "11/20/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-219",
+      "file_num": "2025-219",
+      "file_date": "01/16/2025",
+      "file_name": "DANIEL  FOUNTAINE",
+      "proceeding": "PROBATE PETITION",
+      "dod": "11/27/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2024-2189/B",
+      "file_num": "2024-2189/B",
+      "file_date": "01/15/2025",
+      "file_name": "DANIEL  MICHEL",
+      "proceeding": "PROBATE PETITION",
+      "dod": "03/10/2022",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-387",
+      "file_num": "2025-387",
+      "file_date": "01/30/2025",
+      "file_name": "DANIEL  MURPHY",
+      "proceeding": "PROBATE PETITION",
+      "dod": "12/12/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-311",
+      "file_num": "2025-311",
+      "file_date": "01/24/2025",
+      "file_name": "DENNIS  KELLY",
+      "proceeding": "PROBATE PETITION",
+      "dod": "11/21/2020",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-295",
+      "file_num": "2025-295",
+      "file_date": "01/10/2025",
+      "file_name": "DORA A. MONTIEL",
+      "proceeding": "PROBATE PETITION",
+      "dod": "09/15/2024",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-283",
+      "file_num": "2025-283",
+      "file_date": "01/15/2025",
+      "file_name": "DOROTHY  LAWRENCE",
+      "proceeding": "PROBATE PETITION",
+      "dod": "10/11/2007",
+      "court": "Kings"
+    },
+    {
+      "btn_value": "2025-297",
+      "file_num": "2025-297",
+      "file_date": "01/13/2025",
+      "file_name": "EDMUND J. ORLOWSKI",
+      "proceeding": "PROBATE PETITION",
+      "dod": "12/03/2024",
+      "court": "Kings"
+    }
+  ],
+  "cases": [
+    {
+      "court": "Kings",
+      "file_number": "2025-267",
+      "file_history_url": "https://websurrogates.nycourts.gov/File/FileHistory",
+      "file_date": "01/17/2025",
+      "file_name": "ABE J RIEDER",
+      "proceeding": "PROBATE PETITION",
+      "dod": "09/18/2024",
+      "estate_closed": "N",
+      "disposed": "05/06/2025",
+      "letters": "LETTERS TESTAMENTARY",
+      "letters_issued": "05/06/2025",
+      "estate_attorney": "Marc M Fein",
+      "estate_attorney_firm": "Marc M Fein Attorney At Law",
+      "judge": "ROSEMARIE MONTALBANO",
+      "parties": "",
+      "documents": "[{\"doc_name\": \"AFFIDAVIT OF COMPARISON\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"01/17/2025\", \"signed_date\": \"\", \"uuid\": \"9ea666f7-e5e5-426a-a827-28b2a9e602a0\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=9ea666f7-e5e5-426a-a827-28b2a9e602a0\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/AFFIDAVIT OF COMPARISON_01-17-2025.pdf\"}, {\"doc_name\": \"ATTORNEY CERTIFICATION 207.4(B)\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"01/17/2025\", \"signed_date\": \"\", \"uuid\": \"107030ba-cb8c-4e0a-9830-53dec39e37ee\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=107030ba-cb8c-4e0a-9830-53dec39e37ee\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/ATTORNEY CERTIFICATION 207.4(B)_01-17-2025.pdf\"}, {\"doc_name\": \"DEATH CERTIFICATE\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"01/17/2025\", \"signed_date\": \"\", \"uuid\": \"\", \"has_link\": false, \"viewer_url\": \"\", \"downloaded\": false}, {\"doc_name\": \"NOTICE OF PROBATE WITH AFFIDAVITS OF SERVICE\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"01/17/2025\", \"signed_date\": \"\", \"uuid\": \"bbc80667-43f9-4468-84f9-369eb2478661\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=bbc80667-43f9-4468-84f9-369eb2478661\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/NOTICE OF PROBATE WITH AFFIDAVITS OF SERVICE_01-17-2025.pdf\"}, {\"doc_name\": \"PROBATE PETITION\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"01/17/2025\", \"signed_date\": \"\", \"uuid\": \"546cf923-4310-47f9-83e5-ff98e33dca06\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=546cf923-4310-47f9-83e5-ff98e33dca06\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/PROBATE PETITION_01-17-2025.pdf\"}, {\"doc_name\": \"WAIVER AND CONSENT\", \"comments\": \"MIRIAM SIMON\", \"qty\": \"1\", \"doc_filed\": \"01/17/2025\", \"signed_date\": \"\", \"uuid\": \"2e08b1f8-afb0-4337-8986-f303b0f505b5\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=2e08b1f8-afb0-4337-8986-f303b0f505b5\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/WAIVER AND CONSENT_01-17-2025.pdf\"}, {\"doc_name\": \"WAIVER AND CONSENT\", \"comments\": \"MALKE RIEDER\", \"qty\": \"1\", \"doc_filed\": \"01/17/2025\", \"signed_date\": \"\", \"uuid\": \"3e5d1110-5f67-4a37-98ff-dd25ec2a6268\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=3e5d1110-5f67-4a37-98ff-dd25ec2a6268\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/WAIVER AND CONSENT_01-17-2025_1.pdf\"}, {\"doc_name\": \"WILL OF TESTATOR\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"01/17/2025\", \"signed_date\": \"\", \"uuid\": \"eb104771-e7da-4d71-a4eb-cf506a1c6f66\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=eb104771-e7da-4d71-a4eb-cf506a1c6f66\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/WILL OF TESTATOR_01-17-2025.pdf\"}, {\"doc_name\": \"CLERK DUE SLIP\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"01/27/2025\", \"signed_date\": \"\", \"uuid\": \"5646be82-feb2-4701-9b3d-76767a9e51e3\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=5646be82-feb2-4701-9b3d-76767a9e51e3\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/CLERK DUE SLIP_01-27-2025.pdf\"}, {\"doc_name\": \"AFFIDAVIT OF COMPARISON\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"04/23/2025\", \"signed_date\": \"\", \"uuid\": \"8ccd05fb-9ea8-4169-a73f-e523b6bae0d9\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=8ccd05fb-9ea8-4169-a73f-e523b6bae0d9\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/AFFIDAVIT OF COMPARISON_04-23-2025.pdf\"}, {\"doc_name\": \"AFFIDAVIT OF HEIRSHIP\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"04/23/2025\", \"signed_date\": \"\", \"uuid\": \"871037ab-b91e-4aba-b51d-6b17fb9924c3\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=871037ab-b91e-4aba-b51d-6b17fb9924c3\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/AFFIDAVIT OF HEIRSHIP_04-23-2025.pdf\"}, {\"doc_name\": \"AFFIRMATION\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"04/23/2025\", \"signed_date\": \"\", \"uuid\": \"f9cbae4a-29f8-4b30-abe7-a0dc647f39c1\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=f9cbae4a-29f8-4b30-abe7-a0dc647f39c1\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/AFFIRMATION_04-23-2025.pdf\"}, {\"doc_name\": \"AMENDED PROBATE PETITION\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"04/23/2025\", \"signed_date\": \"\", \"uuid\": \"fe5003a3-d9dd-4204-a2ed-6bce4efd0dbf\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=fe5003a3-d9dd-4204-a2ed-6bce4efd0dbf\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/AMENDED PROBATE PETITION_04-23-2025.pdf\"}, {\"doc_name\": \"DEATH CERTIFICATE\", \"comments\": \"MOSHE RIEDER\", \"qty\": \"1\", \"doc_filed\": \"04/23/2025\", \"signed_date\": \"\", \"uuid\": \"\", \"has_link\": false, \"viewer_url\": \"\", \"downloaded\": false}, {\"doc_name\": \"FAMILY TREE\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"04/23/2025\", \"signed_date\": \"\", \"uuid\": \"67299680-1154-484e-996f-9888311ba2c5\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=67299680-1154-484e-996f-9888311ba2c5\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/FAMILY TREE_04-23-2025.pdf\"}, {\"doc_name\": \"AMENDED PROBATE PETITION\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"05/02/2025\", \"signed_date\": \"\", \"uuid\": \"596e7c88-c60f-4d26-8752-d767551534ac\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=596e7c88-c60f-4d26-8752-d767551534ac\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/AMENDED PROBATE PETITION_05-02-2025.pdf\"}, {\"doc_name\": \"CLERK DUE SLIP\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"05/02/2025\", \"signed_date\": \"\", \"uuid\": \"e12a9d06-5c8d-4345-87b3-064b519985e8\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=e12a9d06-5c8d-4345-87b3-064b519985e8\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/CLERK DUE SLIP_05-02-2025.pdf\"}, {\"doc_name\": \"DECREE GRANTING PROBATE AND WRITTEN DECISION\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"05/06/2025\", \"signed_date\": \"05/06/2025\", \"uuid\": \"cdcb84ae-ea94-40e1-9d01-aa80e20bb097\", \"has_link\": true, \"viewer_url\": \"https://websurrogates.nycourts.gov/File/FileHistory?UUIDValue=cdcb84ae-ea94-40e1-9d01-aa80e20bb097\", \"downloaded\": true, \"local_path\": \"/Users/shehrambaig/PycharmProjects/360_home_offeres/output/downloads/ABE J RIEDER/DECREE GRANTING PROBATE AND WRITTEN DECISION_05-06-2025.pdf\"}, {\"doc_name\": \"LETTERS TESTAMENTARY\", \"comments\": \"\", \"qty\": \"1\", \"doc_filed\": \"05/06/2025\", \"signed_date\": \"\", \"uuid\": \"\", \"has_link\": false, \"viewer_url\": \"\", \"downloaded\": false}]",
+      "document_count": 19,
+      "related_files": ""
+    }
+  ]
 }
